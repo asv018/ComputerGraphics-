@@ -1,10 +1,8 @@
 import pygame
 import math
 
-# Initialize Pygame
 pygame.init()
 
-# Constants for colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 YELLOW = (255, 255, 0)
@@ -12,13 +10,11 @@ ORANGE = (255, 165, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 
-# Set up the screen
 screen_width = 800
 screen_height = 800
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Solar System')
 
-# Define the planets' properties
 sun_radius = 40
 planet_data = [
     {"name": "Mercury", "radius": 10, "distance": 100, "color": YELLOW},
@@ -27,7 +23,6 @@ planet_data = [
     {"name": "Mars", "radius": 12, "distance": 250, "color": RED},
 ]
 
-# Main loop
 running = True
 angle = 0
 while running:
@@ -35,14 +30,11 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # Clear the screen
     screen.fill(BLACK)
 
-    # Draw the sun
     pygame.draw.circle(screen, YELLOW, (screen_width //
                        2, screen_height // 2), sun_radius)
 
-    # Draw the planets
     for planet in planet_data:
         x = screen_width // 2 + \
             planet["distance"] * math.cos(math.radians(angle))
@@ -52,8 +44,6 @@ while running:
             screen, planet["color"], (int(x), int(y),), planet["radius"])
         angle += 1  # Rotate the planets
 
-    # Update the display
     pygame.display.update()
 
-# Quit Pygame
 pygame.quit()

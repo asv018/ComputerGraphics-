@@ -1,48 +1,38 @@
 import pygame
+import math
 
-# Initialize Pygame
 pygame.init()
 
-# Constants for colors
+screen_width = 400
+screen_height = 400
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption('Unlock Clock')
+
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
-# Define the chessboard dimensions
-board_width = 8
-board_height = 8
-square_size = 50  # Size of each square in pixels
+clock_center = (screen_width // 2, screen_height // 2)
+clock_radius = 100
 
-# Initialize the screen
-screen = pygame.display.set_mode(
-    (board_width * square_size, board_height * square_size))
-pygame.display.set_caption("Chessboard")
-
-# Function to draw the chessboard
-
-
-def draw_chessboard(screen):
-    for row in range(board_height):
-        for col in range(board_width):
-            color = WHITE if (row + col) % 2 == 0 else BLACK
-            pygame.draw.rect(screen, color, (col * square_size,
-                             row * square_size, square_size, square_size))
-
-
-# Main game loop
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    # Clear the screen
-    screen.fill((0, 0, 0))
+    screen.fill(WHITE)
 
-    # Draw the chessboard
-    draw_chessboard(screen)
+    pygame.draw.circle(screen, BLACK, clock_center, clock_radius, 2)
 
-    # Update the display
-    pygame.display.flip()
+    start_point = (clock_center[0] - clock_radius //
+                   2, clock_center[1] + clock_radius // 3)
+    middle_point = (clock_center[0] - clock_radius //
+                    4, clock_center[1] + clock_radius // 2)
+    end_point = (clock_center[0] + clock_radius // 3,
+                 clock_center[1] - clock_radius // 4)
+    pygame.draw.line(screen, BLACK, start_point, middle_point, 2)
+    pygame.draw.line(screen, BLACK, middle_point, end_point, 2)
 
-# Quit Pygame
+    pygame.display.update()
+
 pygame.quit()
